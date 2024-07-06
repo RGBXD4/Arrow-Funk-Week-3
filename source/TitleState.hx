@@ -242,7 +242,7 @@ class TitleState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
-		chess = new FlxBackdrop(Paths.image('mebg'), 0, 0, true, false);
+		chess = new FlxBackdrop(Paths.image('mebg'));
 		chess.y -= 80;
 		add(chess);
 		
