@@ -333,6 +333,8 @@ class PlayState extends MusicBeatState
 	// Less laggy controls
 	private var keysArray:Array<Dynamic>;
 
+	public static var qqqeb:Bool = false;
+
 	override public function create()
 	{
 		#if MODS_ALLOWED
