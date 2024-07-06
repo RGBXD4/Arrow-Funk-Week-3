@@ -144,9 +144,10 @@ class Paths
 
 	static public function sound(key:String, ?library:String):Sound
 	{
-		return getPath('sounds/$key.$SOUND_EXT', SOUND, library);
+		var sound:Sound = returnSound('sounds', key, library);
+		return sound;
 	}
-	
+
 	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String)
 	{
 		return sound(key + FlxG.random.int(min, max), library);
@@ -154,17 +155,22 @@ class Paths
 
 	inline static public function music(key:String, ?library:String):Sound
 	{
-		return getPath('music/$key.$SOUND_EXT', MUSIC, library);
+		var file:Sound = returnSound('music', key, library);
+		return file;
 	}
 
 	inline static public function voices(song:String):Any
 	{
-		return 'songs:assets/songs/${song.toLowerCase().replace(' ', '-')}/Voices.$SOUND_EXT';
+		var songKey:String = '${formatToSongPath(song)}/Voices';
+		var voices = returnSound('songs', songKey);
+		return voices;
 	}
 
 	inline static public function inst(song:String):Any
 	{
-		return 'songs:assets/songs/${song.toLowerCase().replace(' ', '-')}/Inst.$SOUND_EXT';
+		var songKey:String = '${formatToSongPath(song)}/Inst';
+		var inst = returnSound('songs', songKey);
+		return inst;
 	}
 
 	#if MODS_ALLOWED
