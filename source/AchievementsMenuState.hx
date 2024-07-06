@@ -88,6 +88,11 @@ class AchievementsMenuState extends MusicBeatState
 		add(descText);
 		changeSelection();
 
+		#if android
+                addVirtualPad(UP_DOWN, B);
+                addPadCamera();
+                #end
+
 		super.create();
 	}
 
