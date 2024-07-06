@@ -56,7 +56,7 @@ class PauseSubState extends MusicBeatSubstate
 		add(bg);
 
 		//chess
-		chess = new FlxBackdrop(Paths.image('mebg'), 0, 0, true, false);
+		chess = new FlxBackdrop(Paths.image('mebg'));
 		chess.y -= 80;
 		add(chess);
 		
