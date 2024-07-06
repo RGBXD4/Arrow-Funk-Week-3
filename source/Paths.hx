@@ -142,17 +142,8 @@ class Paths
 		return 'assets/videos/$key.$VIDEO_EXT';
 	}
 
-	static public function sound(key:String, ?library:String):Dynamic
+	static public function sound(key:String, ?library:String):Sound
 	{
-		#if MODS_ALLOWED
-		var file:String = modsSounds(key);
-		if(FileSystem.exists(file)) {
-			if(!customSoundsLoaded.exists(file)) {
-				customSoundsLoaded.set(file, Sound.fromFile(file));
-			}
-			return customSoundsLoaded.get(file);
-		}
-		#end
 		return getPath('sounds/$key.$SOUND_EXT', SOUND, library);
 	}
 	
@@ -161,39 +152,18 @@ class Paths
 		return sound(key + FlxG.random.int(min, max), library);
 	}
 
-	inline static public function music(key:String, ?library:String):Dynamic
+	inline static public function music(key:String, ?library:String):Sound
 	{
-		#if MODS_ALLOWED
-		var file:String = modsMusic(key);
-		if(FileSystem.exists(file)) {
-			if(!customSoundsLoaded.exists(file)) {
-				customSoundsLoaded.set(file, Sound.fromFile(file));
-			}
-			return customSoundsLoaded.get(file);
-		}
-		#end
 		return getPath('music/$key.$SOUND_EXT', MUSIC, library);
 	}
 
 	inline static public function voices(song:String):Any
 	{
-		#if MODS_ALLOWED
-		var file:Sound = returnSongFile(modsSongs(song.toLowerCase().replace(' ', '-') + '/Voices'));
-		if(file != null) {
-			return file;
-		}
-		#end
 		return 'songs:assets/songs/${song.toLowerCase().replace(' ', '-')}/Voices.$SOUND_EXT';
 	}
 
 	inline static public function inst(song:String):Any
 	{
-		#if MODS_ALLOWED
-		var file:Sound = returnSongFile(modsSongs(song.toLowerCase().replace(' ', '-') + '/Inst'));
-		if(file != null) {
-			return file;
-		}
-		#end
 		return 'songs:assets/songs/${song.toLowerCase().replace(' ', '-')}/Inst.$SOUND_EXT';
 	}
 
@@ -212,20 +182,14 @@ class Paths
 
 	inline static public function image(key:String, ?library:String):Dynamic
 	{
-		#if MODS_ALLOWED
-		var imageToReturn:FlxGraphic = addCustomGraphic(key);
-		if(imageToReturn != null) return imageToReturn;
-		#end
+		
 		return getPath('images/$key.png', IMAGE, library);
 	}
 	
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
 	{
 		#if sys
-		#if MODS_ALLOWED
-		if (!ignoreMods && FileSystem.exists(mods(key)))
-			return File.getContent(mods(key));
-		#end
+		
 
 		if (FileSystem.exists(getPreloadPath(key)))
 			return File.getContent(getPreloadPath(key));
@@ -254,11 +218,7 @@ class Paths
 
 	inline static public function fileExists(key:String, type:AssetType, ?ignoreMods:Bool = false, ?library:String)
 	{
-		#if MODS_ALLOWED
-		if(FileSystem.exists(mods(currentModDirectory + '/' + key)) || FileSystem.exists(mods(key))) {
-			return true;
-		}
-		#end
+		
 		
 		if(OpenFlAssets.exists(Paths.getPath(key, type))) {
 			return true;
@@ -268,38 +228,26 @@ class Paths
 
 	inline static public function getSparrowAtlas(key:String, ?library:String)
 	{
-		#if MODS_ALLOWED
-		var imageLoaded:FlxGraphic = addCustomGraphic(key);
-		var xmlExists:Bool = false;
-		if(FileSystem.exists(modsXml(key))) {
-			xmlExists = true;
-		}
-
-		return FlxAtlasFrames.fromSparrow((imageLoaded != null ? imageLoaded : image(key, library)), (xmlExists ? File.getContent(modsXml(key)) : file('images/$key.xml', library)));
-		#else
+		
 		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
-		#end
+		
 	}
 
 	inline static public function getPackerAtlas(key:String, ?library:String)
 	{
-		#if MODS_ALLOWED
-		var imageLoaded:FlxGraphic = addCustomGraphic(key);
-		var txtExists:Bool = false;
-		if(FileSystem.exists(modsTxt(key))) {
-			txtExists = true;
-		}
-
-		return FlxAtlasFrames.fromSpriteSheetPacker((imageLoaded != null ? imageLoaded : image(key, library)), (txtExists ? File.getContent(modsTxt(key)) : file('images/$key.txt', library)));
-		#else
+		
 		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library), file('images/$key.txt', library));
-		#end
+		
 	}
 
 	inline static public function formatToSongPath(path:String) {
-		return path.toLowerCase().replace(' ', '-');
+		var invalidChars = ~/[~&\\;:<>#]/;
+		var hideChars = ~/[.,'"%?!]/;
+
+		var path = invalidChars.split(path.replace(' ', '-')).join("-");
+		return hideChars.split(path).join("").toLowerCase();
 	}
-	
+
 	#if MODS_ALLOWED
 	static public function addCustomGraphic(key:String):FlxGraphic {
 		if(FileSystem.exists(modsImages(key))) {
