@@ -84,7 +84,7 @@ class MainMenuState extends MusicBeatState
 		add(bg);
 
 		
-		chess = new FlxBackdrop(Paths.image('mmbg'), 0, 0, true, false);
+		chess = new FlxBackdrop(Paths.image('mmbg'));
 		chess.scrollFactor.set(0, 0.1);
 		chess.y -= 80;
 		add(chess);
