@@ -173,6 +173,8 @@ class Paths
 		return inst;
 	}
 
+
+public static var localTrackedAssets:Array<String> = [];
 	public static var currentTrackedSounds:Map<String, Sound> = [];
 
 public static function returnSound(path:String, key:String, ?library:String)
