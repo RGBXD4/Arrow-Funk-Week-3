@@ -54,7 +54,7 @@ class CreditsState extends MusicBeatState
 		
 
 		//chess
-		chess = new FlxBackdrop(Paths.image('fpbg'), 0, 0, true, false);
+		chess = new FlxBackdrop(Paths.image('fpbg'));
 		chess.y -= 80;
 		add(chess);
 		
