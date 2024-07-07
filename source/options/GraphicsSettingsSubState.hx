@@ -71,6 +71,11 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 			true);
 		option.onChange = onChangePersistentData; //Persistent Cached Data changes FlxGraphic.defaultPersist
 		addOption(option);
+
+		#if android
+                addVirtualPad(FULL, A_B);
+		addPadCamera();
+                #end
 		super();
 	}
 
