@@ -132,7 +132,8 @@ class CreditsState extends MusicBeatState
 			['kawaisprite',			'kawaisprite',		"Composer of Friday Night Funkin'",							'https://twitter.com/kawaisprite',		'6475F3'],
 			[''],
 			['freddy fazbear'],
-			['freddy fazbear',		'fredy',			"freddy fazbear",											'https://youtu.be/w0h4YNI_aHI?t=65',	'63272E']
+			['freddy fazbear',		'fredy',			"freddy fazbear",											'https://youtu.be/w0h4YNI_aHI?t=65',	'63272E'],
+			['porter-RGBXD4 lol']
 		];
 		
 		for(i in pisspoop){
