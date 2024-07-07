@@ -133,6 +133,7 @@ class CreditsState extends MusicBeatState
 			[''],
 			['freddy fazbear'],
 			['freddy fazbear',		'fredy',			"freddy fazbear",											'https://youtu.be/w0h4YNI_aHI?t=65',	'63272E'],
+			[''],
 			['porter-RGBXD4 lol']
 		];
 		
